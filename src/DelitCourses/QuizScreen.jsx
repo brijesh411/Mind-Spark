@@ -114,6 +114,7 @@ function QuizScreen({ category, getQuizSummary }) {
     }
   }, [timer, handleConfirm, quizData.data]);
 
+  // eslint-disable-next-line no-unused-vars
   const cheatHandler = () => {
     setAnswer({
       cheat: true,
