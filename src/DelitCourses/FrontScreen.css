@@ -1,0 +1,22 @@
+.section .question {
+  max-width: calc(820px - 50px);
+  margin: 0 10px 1rem 10px;
+  background-color: rgba(255, 247, 247, 1);
+  box-shadow: inset 0px 0px 10px 1px rgba(255, 247, 255, 1);
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.section {
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.section .question h1 {
+  margin: 0.5rem 2rem;
+  color: rgb(155, 88, 1);
+  font-size: 20px;
+}

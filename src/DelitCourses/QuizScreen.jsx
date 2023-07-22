@@ -1,0 +1,195 @@
+import { useEffect, useState, useCallback, useRef } from 'react';
+
+import './QuizScreen.css';
+
+import { Link } from 'react-router-dom';
+
+const answerState = {
+  answer: '',
+  cheat: false,
+  cheated: false
+};
+
+function QuizScreen({ category, getQuizSummary }) {
+  const [quizData, setQuizData] = useState({
+    loading: false,
+    data: [],
+    error: false
+  });
+  const [answer, setAnswer] = useState({ ...answerState });
+  const [result, setResult] = useState([]);
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const [timer, setTimer] = useState(120);
+
+  const formatCategoryText = category === 'all' ? '' : `&category=${category}`;
+  const currentQuestion = quizData?.data?.[questionNumber];
+
+  const nonPremitiveReference = useRef(quizData);
+
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setQuizData({ ...nonPremitiveReference.current, loading: true });
+        
+        const response = await fetch(
+          `https://opentdb.com/api.php?amount=100${formatCategoryText}`
+        );
+        const { results } = await response.json();
+        // if there is no data coming from api but status 200 is returned then we want to end up in catch block
+        if (!results.length) throw new Error();
+        const createOptions = results.map((result) => {
+          const { incorrect_answers, correct_answer } = result;
+          const options = [...incorrect_answers];
+          options?.splice(Math.floor(Math.random() * (options.length + 1)), 0, correct_answer);
+
+          return { ...result, options };
+        });
+
+        return setQuizData({
+          data: createOptions,
+          loading: false,
+          error: false
+        });
+      } catch (err) {
+        setQuizData({ ...nonPremitiveReference.current, loading: false, error: true });
+      }
+    })();
+  }, [formatCategoryText, nonPremitiveReference]);
+
+  // select and deselect the answer
+  const handleAnswerClick = (val) => () => {
+    setAnswer(!!answer.answer && answer.answer === val ? answerState : { ...answer, answer: val });
+  };
+
+  // handling the confirm button click
+  const handleConfirm = useCallback(
+    (skipped = false) => {
+      const updateResult = () => {
+        const manageSkippedAnswer = !skipped ? answer.answer : '';
+        setResult((pre) => [
+          ...pre,
+          {
+            question: currentQuestion.question,
+            correct: currentQuestion.correct_answer === manageSkippedAnswer,
+            your_answer: manageSkippedAnswer,
+            correct_answer: currentQuestion.correct_answer,
+            cheated: answer.cheated
+          }
+        ]);
+      };
+
+      if (questionNumber === 99) {
+        updateResult();
+
+        return getQuizSummary([
+          ...result,
+          {
+            question: currentQuestion.question,
+            correct: currentQuestion.correct_answer === answer.answer,
+            your_answer: answer.answer,
+            correct_answer: currentQuestion.correct_answer,
+            cheated: answer.cheated
+          }
+        ]);
+      }
+      updateResult();
+      setAnswer(answerState);
+      setTimer(120);
+      setQuestionNumber(questionNumber + 1);
+    },
+    [answer, questionNumber, currentQuestion, result, getQuizSummary]
+  );
+
+  useEffect(() => {
+    if (timer !== -1 && !!quizData.data.length) {
+      const setTiming = setInterval(() => {
+        setTimer(timer - 1);
+      }, 1000);
+
+      return () => clearInterval(setTiming);
+    } else if (quizData.data.length) {
+      setAnswer('');
+      handleConfirm(true);
+    }
+  }, [timer, handleConfirm, quizData.data]);
+
+  const cheatHandler = () => {
+    setAnswer({
+      cheat: true,
+      cheated: true,
+      answer: currentQuestion.correct_answer
+    });
+    const showCheat = setTimeout(() => {
+      setAnswer({ ...answerState, cheated: true });
+      clearTimeout(showCheat);
+    }, 500);
+  };
+
+  const itemClassDisplayController = (option) => {
+    if (answer.cheat && answer.answer === option) return 'option-button blinking-options';
+    if (answer.answer === option && !answer.cheat) {
+      return option === currentQuestion.correct_answer ? 'option-button correct-option' : 'option-button incorrect-option';
+    }
+    return 'option-button';
+  };
+
+  // if there is an no data we display this message.
+  if (quizData?.error) {
+    return <div>We Apologize! Something Error Occured!</div>;
+  }
+
+  return (
+    <div className="fun-quiz-screen">
+      
+      {!quizData.loading && (
+        <div className="section">
+          <div className="question">
+            <h2> Select an Option: 
+              <br></br>
+              If It Turns <span style={{color: "rgb(19, 158, 6" }}>Green</span>, Congratulations! You've Chosen the Correct Answer. 
+              <br></br>
+              If It Turns <span style={{color: "rgb(255, 51, 0)" }}>Red</span>, Keep Exploring – It's Not the Right Path Yet. Unleash Your Wisdom and Journey Through the Quiz! 
+            </h2>
+          </div>
+          <div className="link-to-quiz">
+            <div className="heading">
+              <h2> Ready For Quiz?</h2>
+            </div>
+            
+            
+            <Link to="/quiz"><button className="quiz-button"> 
+              Attempt Quiz
+            </button> </Link>
+            
+          </div>
+          <div className="question-info">Question: {questionNumber + 1}</div>
+          <div className="question">
+            <h1 dangerouslySetInnerHTML={{ __html: currentQuestion?.question }} />
+          </div>
+          <div className="options">
+            {currentQuestion?.options?.map((option, index) => {
+              return (
+                <div className="single-opt" key={index}>
+                  <div
+                    className={itemClassDisplayController(option)}
+                    dangerouslySetInnerHTML={{ __html: option }}
+                    onClick={handleAnswerClick(option)}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <div className="footer">
+           
+            <button className="link" onClick={() => handleConfirm(true)}>
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default QuizScreen;

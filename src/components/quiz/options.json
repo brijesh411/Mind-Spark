@@ -1,0 +1,54 @@
+[
+  {
+    "name": "All",
+    "id": "all"
+  },
+  {
+    "name": "Books",
+    "id": 10
+  },
+  {
+    "name": "General Knwoledge",
+    "id": 9
+  },
+  {
+    "name": "Art",
+    "id": 25
+  },
+  {
+    "name": "Music",
+    "id": 12
+  },
+  {
+    "name": "Mythology",
+    "id": 20
+  },
+  {
+    "name": "Computers",
+    "id": 18
+  },
+  {
+    "name": "Mathematics",
+    "id": 19
+  },
+  {
+    "name": "Sports",
+    "id": 21
+  },
+  {
+    "name": "Geography",
+    "id": 22
+  },
+  {
+    "name": "History",
+    "id": 23
+  },
+  {
+    "name": "Politics",
+    "id": 24
+  },
+  {
+    "name": "Science & Nature",
+    "id": 17
+  }
+]
