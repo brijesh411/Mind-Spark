@@ -18,7 +18,7 @@ const PriceCard = () => {
             ))}
           </div>
           <br />
-          <Link to= "/delit">
+          <Link to= "/learning-center">
           <button className="outline-btn">GET STARTED</button>
           </Link>
         </div>

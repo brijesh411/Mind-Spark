@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import './animation.css';
-import dog from './dog.png'
+import hat from './hat.gif'
 const Animation = () => {
   const [isHovered, setIsHovered] = useState(false);
   
@@ -18,11 +18,11 @@ const Animation = () => {
   };
 
   return (
-    <div className="yap-dog-box">
+    <div className="yap-hat-box">
       <img
-        src={dog}
-        alt="A dog"
-        className="yap-dog"
+        src={hat}
+        alt="A hat"
+        className="yap-hat"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onAnimationEnd={handleHovered}

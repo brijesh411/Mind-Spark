@@ -1,22 +1,23 @@
-.yap-dog-box {
-    width: 0px;
-    height: 100px;
-    
+.yap-hat-box {
+    width: 0;
+    height: 10px;
+    left: 20px;
+    top: -40px;
     position: absolute;
     cursor: pointer;
   }
 
-  .yap-dog {
-    animation: yap-dog 0.5s ease-in-out;
+  .yap-hat {
+    animation: yap-hat 0.5s ease-in-out;
     position: sticky;
     bottom: 0;
-    left: 80px;
+    padding-right: 23px;    
     transform: translateY(-100%);
-    width: 70px;
-    height: 70px;
+    width: 150px;
+    height: 150px;
   }
 
-  @keyframes yap-dog {
+  @keyframes yap-hat {
     0% {
       transform: translateY(0%);
       opacity: 1;
@@ -31,9 +32,9 @@
     }
   }
 
-  @keyframes yap-dog-repeat {
+  @keyframes yap-hat-repeat {
     0% {
-      transform: translateY(-75%);
+      transform: translateY(-50%);
       opacity: 0;
     }
     
@@ -43,15 +44,15 @@
     }
 
     100% {
-      transform: translateY(-75%);
+      transform: translateY(-50%);
       opacity: 0;
     }
   }
 
-  .yap-dog-box:not(:hover) .yap-dog {
-    animation: yap-dog-repeat 3s infinite;
+  .yap-hat-box:not(:hover) .yap-hat {
+    animation: yap-hat-repeat 3s infinite;
   }
   
-  .yap-dog-box:hover .yap-dog {
-        animation: yap-dog 2s infinite;
+  .yap-hat-box:hover .yap-hat {
+        animation: yap-hat 2s infinite;
   }

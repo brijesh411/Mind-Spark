@@ -10,7 +10,7 @@ import Contact from "./components/contact/Contact"
 import Footer from "./components/common/footer/Footer"
 import Home from "./components/home/Home"
 import FunQuiz from "./components/quiz/FunQuiz"
-import Delit from "./DelitCourses/FunQuiz"
+import HomePage from "./components/learning-center/HomePage"
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
           <Route exact path='/blog' Component={Blog} />
           <Route exact path='/contact' Component={Contact} />
            <Route exact path='/quiz' Component={FunQuiz} />
-          <Route exact path='/delit' Component={Delit} /> 
+          <Route exact path='/learning-center' Component={HomePage} /> 
         </Routes>
         <Footer />
       </Router>

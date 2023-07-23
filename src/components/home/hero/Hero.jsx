@@ -22,7 +22,7 @@ const Hero = () => {
                 PARTICIPATE IN QUIZ <i className='fa fa-long-arrow-alt-right'></i>
               </button>
             </Link>
-            <Link to="/delit">
+            <Link to="/learning-center">
               <button className='secondary-btn'>
                 VIEW COURSE <i className='fa fa-long-arrow-alt-right'></i>
               </button>

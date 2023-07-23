@@ -4,9 +4,9 @@ import QuizSelectionScreen from './FrontScreen';
 import EndScreen from './EndScreen';
 
 // css
-import './FunQuiz.css';
+import './HomePage.css';
 
-function FunQuiz(props) {
+function HomePage(props) {
   // Your Code Start below.
   const [category, setCategory] = useState('');
   const [quizCompleted, setQuizCompleted] = useState(false);
@@ -60,4 +60,4 @@ function FunQuiz(props) {
   );
 }
 
-export default FunQuiz;
+export default HomePage;

@@ -56,7 +56,7 @@ const HAbout = () => {
                     </h3>
                   
                 </div>
-                  <Link to="/delit">
+                  <Link to="/learning-center">
                     <button className='outline-btn'>ENROLL NOW !</button>
                   </Link> 
                </div>
