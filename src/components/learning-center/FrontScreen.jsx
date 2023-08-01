@@ -20,9 +20,6 @@ const QuizSelectionScreen = ({ getSelectedCategory }) => {
     return (
       <>
 
-
-      
-      
         <div className="section">
         <div className="question">
             <h1> Select an Option: 
@@ -34,16 +31,10 @@ const QuizSelectionScreen = ({ getSelectedCategory }) => {
           </div>
           </div>
           
-
         <div className="front-footer">
           <button onClick={() => getSelectedCategory(selectedOption)}>Yes, Lets Start!</button>
         </div>
 
-        <div>
-          <button className="back" onClick={() => setView(CATEGORY_SELECTION)}>
-            &#171; Back
-          </button>
-        </div>
       </>
     );
   };
