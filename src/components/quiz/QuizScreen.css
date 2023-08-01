@@ -181,8 +181,7 @@
 
 .fun-quiz-screen .section .footer {
   margin: 1rem 0;
-  width: 540px;
-  height: 50px;
+  padding-top: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
